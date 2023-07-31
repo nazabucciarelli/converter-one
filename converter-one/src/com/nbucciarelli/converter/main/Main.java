@@ -1,5 +1,8 @@
 package com.nbucciarelli.converter.main;
 
+import com.nbucciarelli.converter.client.CurrencyEnum;
+import com.nbucciarelli.converter.client.DollarEuroAPI;
+
 import javax.swing.*;
 import java.text.DecimalFormat;
 
@@ -39,12 +42,11 @@ public class Main {
 
     private static void chooseTypeOfConvertion(String option, double value) {
         String[] optionsCurrency = {"Pesos Argentinos to Dollars", "Pesos Argentinos to Euros",
-                "Pesos Argentinos to Corona Danesa", "Dollars to Pesos Argentinos", "Euros to Pesos Argentinos",
-                "Corona Danesa to Pesos Argentinos"};
+                "Dollars to Pesos Argentinos", "Euros to Pesos Argentinos"};
         String[] optionsDistance = {"Meters to Centimeters", "Kilometers to Miles",
                 "Miles to Kilometers", "Centimeters to Meters"};
         String chosenConvertType;
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#.###");
         if (option.equals(options[0])) {
             chosenConvertType = (String) JOptionPane.showInputDialog(null, null,
                     "Choose currency convertion", JOptionPane.PLAIN_MESSAGE, null, optionsCurrency, optionsCurrency[0]);
@@ -58,17 +60,14 @@ public class Main {
             System.out.println("User's closed the menu of choose");
             System.exit(0);
         } else if (chosenConvertType.equals(optionsCurrency[0])) { // ARS to USD
-            result = value * 0.0037;
+            result = value / DollarEuroAPI.getAvgValueOf(CurrencyEnum.DOLLAR);
+            ;
         } else if (chosenConvertType.equals(optionsCurrency[1])) { // ARS to EUR
-            result = value * 0.0033;
-        } else if (chosenConvertType.equals(optionsCurrency[2])) { // ARS to COR
-            result = value * 0.0247;
-        } else if (chosenConvertType.equals(optionsCurrency[3])) { // USD to ARS
-            result = value * 273.6507;
-        } else if (chosenConvertType.equals(optionsCurrency[4])) { // EUR to ARS
-            result = value * 301.8750;
-        } else if (chosenConvertType.equals(optionsCurrency[5])) { // COR to ARS
-            result = value * 40.38;
+            result = value / DollarEuroAPI.getAvgValueOf(CurrencyEnum.EURO);
+        } else if (chosenConvertType.equals(optionsCurrency[2])) { // USD to ARS
+            result = value * DollarEuroAPI.getAvgValueOf(CurrencyEnum.DOLLAR);
+        } else if (chosenConvertType.equals(optionsCurrency[3])) { // EUR to ARS
+            result = value * DollarEuroAPI.getAvgValueOf(CurrencyEnum.EURO);
         } else if (chosenConvertType.equals(optionsDistance[0])) { // Meters to Centimeters
             result = value * 100;
         } else if (chosenConvertType.equals(optionsDistance[1])) { // KM to Miles
