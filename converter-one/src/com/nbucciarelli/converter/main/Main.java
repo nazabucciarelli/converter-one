@@ -78,6 +78,12 @@ public class Main {
             result = value * 0.01;
         }
         JOptionPane.showMessageDialog(null, value + " " + chosenConvertType + " is equal to " + df.format(result));
-        chooseTypeOfConvertion(option, value);
+        int answer = JOptionPane.showConfirmDialog(null,"Wish you continue converting?","Question",JOptionPane.YES_NO_OPTION,JOptionPane.PLAIN_MESSAGE,null);
+        if(answer == JOptionPane.YES_OPTION){
+            main(null);
+        } else{
+            System.exit(0);
+        }
+
     }
 }
